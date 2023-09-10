@@ -1,4 +1,4 @@
-package ru.nsu.fit.smolyakov.concurrency.lab1;
+package ru.nsu.fit.smolyakov.concurrency.lab2;
 
 import java.util.stream.IntStream;
 
@@ -11,7 +11,15 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        new Thread(() -> printLines(10)).start();
+        var thread = new Thread(() -> printLines(10));
+
+        thread.start();
+        try {
+            thread.join();
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
         printLines(10);
     }
 }
