@@ -7,7 +7,7 @@ public class Main {
         long threadId = Thread.currentThread().getId();
         IntStream.range(0, lines)
             .mapToObj(lineNo -> "[thread %d] hello this is line %d".formatted(threadId, lineNo))
-            .forEach(System.err::println);
+            .forEachOrdered(System.out::println);
     }
 
     public static void main(String[] args) {
