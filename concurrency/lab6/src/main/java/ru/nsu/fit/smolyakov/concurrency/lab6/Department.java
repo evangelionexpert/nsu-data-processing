@@ -1,3 +1,5 @@
+package ru.nsu.fit.smolyakov.concurrency.lab6;
+
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.TimeUnit;
 
@@ -5,6 +7,7 @@ public class Department {
     private final int identifier;
     private final int workingSeconds;
     private int calculationResult = 0;
+
     public Department(final int identifier) {
         this.identifier = identifier;
         this.workingSeconds = ThreadLocalRandom.current().nextInt(1, 6);
@@ -30,6 +33,7 @@ public class Department {
     public int getIdentifier() {
         return identifier;
     }
+
     /**
      * ВАЖНО!
      * Далеко не самый правильный способ вычисления и получения данных,

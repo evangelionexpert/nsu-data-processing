@@ -10,7 +10,7 @@ public class Main {
             try {
                 Thread.sleep(133);
             } catch (InterruptedException e) {
-                System.out.println("i was interrupted oops, stopping");
+                System.out.println("ive been interrupted, stopping");
                 return;
             }
         }

@@ -11,7 +11,15 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        new Thread(() -> printLines(10)).start();
+        var thread = new Thread(() -> printLines(10));
+        thread.start();
+
         printLines(10);
+
+        try {
+            thread.join();
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
