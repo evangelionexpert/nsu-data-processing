@@ -1,0 +1,29 @@
+plugins {
+    id 'java'
+    id 'application'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // testImplementation 'org.junit.jupiter:junit-jupiter:5.8.2'
+}
+
+mainClassName = 'ru.nsu.fit.smolyakov.concurrency.lab8.Main'
+
+jar {
+    manifest {
+        attributes(
+                'class-path': configurations.runtimeClasspath.files.collect { it.getName() }.join(' '),
+                'main-class': mainClassName
+        )
+    }
+}
+
+
+// test {
+//     useJUnitPlatform()
+// }
+

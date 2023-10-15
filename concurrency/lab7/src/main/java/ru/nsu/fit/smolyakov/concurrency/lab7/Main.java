@@ -2,12 +2,15 @@ package ru.nsu.fit.smolyakov.concurrency.lab7;
 
 public class Main {
     public static void main(String[] args) {
-        if (args.length < 2) {
-            throw new IllegalArgumentException();
-        }
+//        if (args.length < 2) {
+//            throw new IllegalArgumentException();
+//        }
 
-        var threads = Integer.parseInt(args[0]);
-        var iterations = Integer.parseInt(args[1]);
+//        var threads = Integer.parseInt(args[0]);
+//        var iterations = Integer.parseInt(args[1]);
+
+        var threads = 10;
+        var iterations = 100000000;
 
         double res;
         try {

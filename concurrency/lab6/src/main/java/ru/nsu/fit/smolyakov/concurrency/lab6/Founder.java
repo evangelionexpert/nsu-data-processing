@@ -16,12 +16,13 @@ public final class Founder {
 
         this.countDownLatch = new CountDownLatch(company.getDepartmentsCount());
 
-        this.workers = IntStream.range(0, company.getDepartmentsCount())
+        this.workers = company.
             .mapToObj(Department::new)
             .map(department -> {
                 return (Runnable) () -> {
                     department.performCalculations();
                     countDownLatch.countDown();
+                    System.out.printf("id %d: %d\n", Thread.currentThread().getId(), department.getCalculationResult());
                 };
             })
             .toList();

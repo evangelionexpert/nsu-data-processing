@@ -1,0 +1,14 @@
+plugins {
+    id 'java'
+    id 'application'
+}
+
+repositories {
+    mavenCentral()
+}
+
+mainClassName = 'ru.nsu.fit.smolyakov.concurrency.lab12.Main'
+
+run {
+    standardInput = System.in
+}

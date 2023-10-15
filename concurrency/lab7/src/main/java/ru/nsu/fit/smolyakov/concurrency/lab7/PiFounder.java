@@ -1,5 +1,6 @@
 package ru.nsu.fit.smolyakov.concurrency.lab7;
 
+import java.util.Arrays;
 import java.util.concurrent.CountDownLatch;
 
 public class PiFounder {
@@ -30,26 +31,27 @@ public class PiFounder {
         }
 
         var countDownLatch = new CountDownLatch(threads);
-        var res = new AtomicDouble(0);
 
         var denominatorDiff = threads * 2;
         var currentFirstSign = 1;
 
         var alternateSeriesSign = threads % 2 != 0;
 
+        var res = new double[threads];
+
         for (int i = 0; i < threads; i++) {
             var firstItemDenominator = (i * 2) + 1;
             int finalCurrentSign = currentFirstSign;
 
+            int finalI = i;
             new Thread(() -> {
-                double sum = leibnizSeriesSum(
+                res[finalI] = leibnizSeriesSum(
                     iterations,
                     firstItemDenominator,
                     denominatorDiff,
                     finalCurrentSign,
                     alternateSeriesSign
                 );
-                res.add(sum);
                 countDownLatch.countDown();
             }).start();
 
@@ -57,7 +59,7 @@ public class PiFounder {
         }
 
         countDownLatch.await();
-        return res.get() * 4;
+        return Arrays.stream(res).sum();
     }
 
     private static double leibnizSeriesSum(
@@ -68,15 +70,15 @@ public class PiFounder {
         boolean alternateSign
     ) {
         double res = 0;
-        int denominator = firstItemDenominator;
+        long denominator = firstItemDenominator;
 
         var signMultiplier = alternateSign ? -1 : 1;
         var currentSign = firstItemSign;
 
         for (int i = 0; i < iterations; i++) {
-            res += currentSign * (1d/denominator);
+            res += currentSign * (4d/denominator);
 
-            System.out.println(Thread.currentThread().getName() + " ::: " + currentSign + "/" + denominator);
+//            System.out.println(Thread.currentThread().getName() + " ::: " + currentSign + "/" + denominator);
 
             denominator += denominatorDiff;
             currentSign *= signMultiplier;
