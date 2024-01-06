@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.time.Duration;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.stream.IntStream;
 
 public class Main {
@@ -12,21 +14,21 @@ public class Main {
         int sleepMillis = (int) Duration.ofSeconds(5).toMillis();
         var list = new SynchronizedLinkedList<String>();
 
-        new Thread(() -> {
-            for (;;) {
-                try {
-                    Thread.sleep(sleepMillis);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
-                list.sort(String::compareTo);
+        new Timer().scheduleAtFixedRate(
+            new TimerTask() {
+                @Override
+                public void run() {
+                    list.sort(String::compareTo);
 
-                System.out.println("\n!! Printing current state:");
-                list.print(System.out);
-                System.out.println();
-                System.out.println();
-            }
-        }).start();
+                    System.out.println("\n!! Printing current state:");
+                    list.print(System.out);
+                    System.out.println();
+                    System.out.println();
+                }
+            },
+            sleepMillis,
+            sleepMillis
+            );
 
         var reader = new BufferedReader(new InputStreamReader(System.in));
         for (;;) {

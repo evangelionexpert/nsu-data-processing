@@ -8,7 +8,7 @@ repositories {
 }
 
 application {
-    mainClass = 'ru.nsu.fit.smolyakov.concurrency.lab15.Main'
+    mainClass = 'ru.nsu.fit.smolyakov.concurrency.lab16.Main'
 }
 
 jar {
@@ -18,4 +18,8 @@ jar {
             'main-class': application.mainClass
         )
     }
+}
+
+run {
+    standardInput = System.in
 }
